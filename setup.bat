@@ -124,45 +124,67 @@ echo    [✅] Python is ready
 
 echo.
 echo    ➡️ Setting up virtual environment...
+
 if exist "venv" (
-    echo        Removing old virtual environment...
-    rmdir /s /q "venv"
+    echo        Found existing virtual environment - reusing it! 🔄
+    set "VENV_DIR=venv"
+) else (
+    echo        Creating new virtual environment...
+    python -m venv venv
+    if %errorlevel% neq 0 (
+        echo    ❌ Failed to create virtual environment
+        echo        This might be due to antivirus or permission issues
+        echo        Try running as administrator or temporarily disable antivirus
+        goto PAUSE_RETURN
+    )
+    echo    [✅] Virtual environment created
+    set "VENV_DIR=venv"
 )
 
-python -m venv venv
-if %errorlevel% neq 0 (
-    echo    ❌ Failed to create virtual environment
-    goto PAUSE_RETURN
-)
-echo    [✅] Virtual environment created
-
 echo.
-echo    ➡️ Activating virtual environment...
-call venv\Scripts\activate.bat
-echo    [✅] Virtual environment activated
+echo    ➡️ Installing required packages...
 
-echo.
-echo    ➡️ Upgrading pip to latest version...
-pip install --upgrade pip --quiet
-echo    [✅] pip upgraded
+REM Set the venv python and pip paths for clarity
+set "VENV_PYTHON=%VENV_DIR%\Scripts\python.exe"
+set "VENV_PIP=%VENV_PYTHON% -m pip"
 
-echo.
-echo    ➡️ Installing psutil (battery monitoring magic)...
-pip install psutil --quiet
+echo        • Upgrading pip...
+%VENV_PIP% install --upgrade pip >nul 2>&1
+echo        [✅] pip ready
+
+echo        • Installing psutil...
+%VENV_PIP% install psutil >nul 2>&1
 if %errorlevel% neq 0 (
     echo    ❌ Failed to install psutil
     goto PAUSE_RETURN
 )
-echo    [✅] psutil installed
+echo        [✅] psutil installed
 
-echo.
-echo    ➡️ Installing pyinstaller (executable builder)...
-pip install pyinstaller --quiet
+echo        • Installing pyinstaller...
+%VENV_PIP% install pyinstaller >nul 2>&1
 if %errorlevel% neq 0 (
     echo    ❌ Failed to install pyinstaller
     goto PAUSE_RETURN
 )
-echo    [✅] pyinstaller installed
+echo        [✅] pyinstaller installed
+
+echo.
+echo    ➡️ Verifying installations...
+echo        • Testing psutil...
+%VENV_PYTHON% -c "import psutil; print('psutil version:', psutil.__version__)" 2>nul
+if %errorlevel% neq 0 (
+    echo    ❌ psutil verification failed
+    goto PAUSE_RETURN
+)
+echo        [✅] psutil working
+
+echo        • Testing pyinstaller...
+%VENV_DIR%\Scripts\pyinstaller.exe --version >nul 2>&1
+if %errorlevel% neq 0 (
+    echo    ❌ pyinstaller verification failed
+    goto PAUSE_RETURN
+)
+echo        [✅] pyinstaller working
 
 echo.
 echo    ===============================================================
@@ -467,8 +489,13 @@ if exist "%INSTALL_DIR%" (
 echo.
 echo    ➡️ Cleaning up virtual environment...
 if exist "venv" (
-    rmdir /s /q "venv"
-    echo    [✅] Virtual environment removed
+    rmdir /s /q "venv" >nul 2>&1
+    if not exist "venv" (
+        echo    [✅] Virtual environment removed
+    ) else (
+        echo    [!] Virtual environment couldn't be removed (files may be in use)
+        echo        You can manually delete the 'venv' folder later
+    )
 ) else (
     echo    [!] Virtual environment not found
 )
