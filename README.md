@@ -2,9 +2,6 @@
 
 A lightning-fast Python application that protects your laptop battery by showing a fullscreen warning when your charger is disconnected. Features ultra-optimized startup (~0.1-0.3 seconds) and minimal resource usage.
 
-**Created by:** [mrbeandev](https://t.me/mrbeandev)  
-**Contact:** t.me/mrbeandev
-
 ## 🚀 Quick Setup (No Technical Knowledge Required)
 
 Just double-click **`setup.bat`** and follow the beautiful interactive wizard:
@@ -171,7 +168,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 Feel free to submit issues and pull requests to improve this tool!
 
 **Author:** [mrbeandev](https://t.me/mrbeandev)  
-**Contact:** t.me/mrbeandev
+**Contact:** [@mrbeandev](https://t.me/mrbeandev)
 
 ---
 
