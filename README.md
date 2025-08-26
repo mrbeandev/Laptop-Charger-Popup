@@ -4,13 +4,15 @@ A lightweight Python application that displays a fullscreen popup reminder when 
 
 ## Quick Setup (No Technical Knowledge Required)
 
-Just double-click the batch files in order:
+Just double-click **`setup.bat`** and follow the interactive menu:
 
-0. **`0_test_python.bat`** - (Optional) Test if Python is properly installed
-1. **`1_install_requirements.bat`** - Creates virtual environment and installs packages
-2. **`2_build_exe.bat`** - Creates the executable (optimized for speed)
-3. **`3_setup_startup.bat`** - Adds to Windows startup
-4. **`4_uninstall.bat`** - Removes everything (if needed later)
+1. **Check Python Installation** - Test if Python works
+2. **Install Requirements** - Creates virtual environment and installs packages  
+3. **Build Lightning-Fast Executable** - Creates the executable (optimized for speed)
+4. **Setup Windows Startup** - Adds to Windows startup
+5. **Test Your Application** - See it in action
+6. **Show System Status** - Check what's installed
+7. **Complete Uninstall** - Removes everything (if needed later)
 
 ## Prerequisites
 
@@ -72,11 +74,7 @@ ChargerMonitor/
 ├── requirements.txt               # Python dependencies
 ├── LICENSE                        # MIT License
 ├── .gitignore                     # Git ignore rules
-├── 0_test_python.bat             # Test Python installation
-├── 1_install_requirements.bat     # Create venv and install packages
-├── 2_build_exe.bat               # Build optimized executable
-├── 3_setup_startup.bat           # Setup Windows startup
-├── 4_uninstall.bat               # Complete removal
+├── setup.bat                      # All-in-one setup wizard
 ├── venv/                         # Virtual environment (auto-created)
 ├── build/                        # Build files (auto-generated)
 └── dist/v1/                      # Final executable folder
@@ -86,17 +84,17 @@ ChargerMonitor/
 
 ## Troubleshooting
 
-**Python not found**: Run `0_test_python.bat` to check your Python installation
+**Python not found**: Use option 1 in `setup.bat` to check your Python installation
 
-**Build fails**: Ensure you ran `1_install_requirements.bat` first
+**Build fails**: Use option 2 in `setup.bat` to install requirements first
 
-**Slow startup**: Use the provided batch files (they include speed optimizations)
+**Slow startup**: The setup wizard includes all speed optimizations automatically
 
 **Doesn't start on boot**: Check Windows startup folder for the shortcut
 
 ## Uninstall
 
-Simply run `4_uninstall.bat` to remove everything completely, including the virtual environment.
+Simply run `setup.bat` and choose option 7 to remove everything completely, including the virtual environment.
 
 ## Technical Notes
 
